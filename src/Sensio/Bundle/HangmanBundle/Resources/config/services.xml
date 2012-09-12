@@ -22,7 +22,7 @@
         <service id="sensio_hangman.word_list"
                  class="%sensio_hangman.word_list.class%"
                 >
-            <argument>%sensio_hangman.dictionaries%</argument>
+            <argument>%sensio_hangman_dictionaries%</argument>
             <call method="loadDictionaries"/>
         </service>
 
