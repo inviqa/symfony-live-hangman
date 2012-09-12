@@ -1,0 +1,16 @@
+{% extends "SensioHangmanBundle::layout.html.twig" %}
+
+{% form_theme form "form_table_layout.html.twig" %}
+
+{% block body %}
+
+    <h2>Free registration</h2>
+
+    <form novalidate action="{{ path('registration') }}" method="post">
+        {{ form_widget(form) }}
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "SensioHangmanBundle::layout.html.twig" %}
+
+{% block title -%}
+
+    Hangman Game
+
+{%- endblock title %}
+
+{% block body %}
+
+    <h2>Guess the mysterious word</h2>
+
+        <p class="attempts">
+            You still have {{ game.remainingAttempts }} remaining attempts.
+        </p>
+
+        <ul class="word_letters">
+            {% for letter in game.wordLetters %}
+                <li class="letter {{ game.isLetterFound(letter) ? 'guessed' : 'hidden' }}">
+                    {{ game.isLetterFound(letter) ? letter : '?' }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <br class="clearfix" />
+
+        <p class="attempts">
+            <a href="{{ path('game_reset') }}">Reset the game</a>
+        </p>
+
+        <br class="clearfix" />
+
+    <h2>Try a letter</h2>
+
+        <ul>
+            {% for letter in 'A'..'Z' %}
+                <li class="letter">
+                    <a href="{{ path('play_letter', { 'letter': letter }) }}">
+                        {{ letter }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    <h2>Try a word</h2>
+
+        <form action="{{ path('play_word') }}" method="post">
+            <p>
+                <label for="word">Word:</label>
+                <input type="text" name="word"/>
+                <button type="submit">Let me guess...</button>
+            </p>
+        </form>
+
+{% endblock body %}

@@ -1,0 +1,12 @@
+software
+hardware
+goblins
+banana
+strawberry
+purple
+yellow
+cheese
+lamb
+yacht
+xylophone
+student
