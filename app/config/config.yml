@@ -52,7 +52,7 @@ doctrine:
         charset:  UTF8
 
     orm:
-        auto_generate_proxy_classkes: %kernel.debug%
+        auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
 
 # Swiftmailer Configuration

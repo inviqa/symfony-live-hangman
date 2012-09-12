@@ -1,3 +1,7 @@
-app/cache
-app/logs
+app/bootstrap.php.cache
+app/cache/*
+app/logs/*
+build/
 vendor
+bin
+composer.phar
