@@ -3,8 +3,8 @@ imports:
     - { resource: security.yml }
 
 parameters:
-    hangman.word_length: 8
-    hangman_dictionaries:
+    sensio_hangman.word_length: 8
+    sensio_hangman.dictionaries:
         - "%kernel.root_dir%/data/words.txt"
         - "%kernel.root_dir%/data/words.xml"
 
@@ -52,7 +52,7 @@ doctrine:
         charset:  UTF8
 
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classkes: %kernel.debug%
         auto_mapping: true
 
 # Swiftmailer Configuration
@@ -62,3 +62,10 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+sensio_hangman:
+    word_length: 8
+    dictionaries:
+        - "%kernel.root_dir%/data/words.txt"
+        - "%kernel.root_dir%/data/words.xml"
+

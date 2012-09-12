@@ -31,10 +31,10 @@ class GameController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $context = $this->getGameContext();
-        $list    = $this->getWordList();
+        $context = $this->get('sensio_hangman.game_context');
+        $list    = $this->get('sensio_hangman.word_list');
 
-        $length  = $request->query->get('length', $this->container->getParameter('hangman.word_length'));
+        $length  = $request->query->get('length', $this->container->getParameter('sensio_hangman.word_length'));
         $word    = $list->getRandomWord($length);
 
         if (!$game = $context->loadGame()) {
@@ -55,7 +55,7 @@ class GameController extends Controller
      */
     public function letterAction($letter)
     {
-        $context = $this->getGameContext();
+        $context = $this->get('sensio_hangman.game_context');
 
         if (!$game = $context->loadGame()) {
             throw $this->createNotFoundException('Unable to load the previous game context.');
@@ -86,7 +86,7 @@ class GameController extends Controller
      */
     public function wordAction(Request $request)
     {
-        $context = $this->getGameContext();
+        $context = $this->get('sensio_hangman.game_context');
 
         if (!$game = $context->loadGame()) {
             throw $this->createNotFoundException('Unable to load the previous game context.');
@@ -113,7 +113,7 @@ class GameController extends Controller
      */
     public function hangedAction()
     {
-        $context = $this->getGameContext();
+        $context = $this->get('sensio_hangman.game_context');
 
         if (!$game = $context->loadGame()) {
             throw $this->createNotFoundException('Unable to load the previous game context.');
@@ -137,7 +137,7 @@ class GameController extends Controller
      */
     public function wonAction()
     {
-        $context = $this->getGameContext();
+        $context = $this->get('sensio_hangman.game_context');
 
         if (!$game = $context->loadGame()) {
             throw $this->createNotFoundException('Unable to load the previous game context.');
@@ -159,29 +159,9 @@ class GameController extends Controller
      */
     public function resetAction()
     {
-        $context = $this->getGameContext();
+        $context = $this->get('sensio_hangman.game_context');
         $context->reset();
 
         return $this->redirect($this->generateUrl('hangman_game'));
-    }
-
-    private function getGameContext()
-    {
-        if (null === $this->gameContext) {
-            $this->gameContext = new GameContext($this->get('session'));
-        }
-
-        return $this->gameContext;
-    }
-
-    private function getWordList()
-    {
-        if (null === $this->wordList) {
-            $dictionaries = $this->container->getParameter('hangman_dictionaries');
-            $this->wordList = new WordList($dictionaries);
-            $this->wordList->loadDictionaries();            
-        }
-
-        return $this->wordList;
     }
 }
