@@ -167,21 +167,11 @@ class GameController extends Controller
 
     private function getGameContext()
     {
-        if (null === $this->gameContext) {
-            $this->gameContext = new GameContext($this->get('session'));
-        }
-
-        return $this->gameContext;
+        return $this->get('sensio_hangman.game_context');
     }
 
     private function getWordList()
     {
-        if (null === $this->wordList) {
-            $dictionaries = $this->container->getParameter('sensio_hangman.dictionaries');
-            $this->wordList = new WordList($dictionaries);
-            $this->wordList->loadDictionaries();            
-        }
-
-        return $this->wordList;
+        return $this->get('sensio_hangman.word_list');
     }
 }
