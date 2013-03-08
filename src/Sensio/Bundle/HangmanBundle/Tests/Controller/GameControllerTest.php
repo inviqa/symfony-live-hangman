@@ -7,5 +7,9 @@ use Sensio\Bundle\HangmanBundle\Game\Game;
 
 class GameControllerTest extends WebTestCase
 {
-    
+    public function testTryWord()
+    {
+
+    }
+
 }
