@@ -2,11 +2,10 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
 
-parameters:
-    sensio_hangman.word_length: 8
-    sensio_hangman.dictionaries:
-        - "%kernel.root_dir%/data/words.txt"
-        - "%kernel.root_dir%/data/words.xml"
+sensio_hangman:
+  dictionaries:
+    - "%kernel.root_dir%/data/words.txt"
+    - "%kernel.root_dir%/data/words.xml"
 
 framework:
     #esi:             ~
