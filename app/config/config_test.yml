@@ -3,6 +3,9 @@ imports:
 
 parameters:
     sensio_hangman.word_length: 3
+    sensio_hangman.dictionaries:
+        - %kernel.root_dir%/../src/Sensio/Bundle/HangmanBundle/Tests/Fixtures/words.txt
+
 
 framework:
     test: ~
