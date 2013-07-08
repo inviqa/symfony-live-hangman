@@ -1,0 +1,27 @@
+<?php
+
+namespace Sensio\Bundle\HangmanBundle\Tests\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class GameControllerTest extends WebTestCase
+{
+    private $client;
+
+    // Write your functional test scenario here...
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->client = static::createClient();
+        $this->client->followRedirects(true);
+    }
+
+    protected function tearDown()
+    {
+        $this->client = null;
+
+        parent::tearDown();
+    }
+}

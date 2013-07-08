@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}The Hangman Workshop{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/sensiohangman/css/style.css') }}" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <div id="logo">
+                    <h1>
+                        <a href="#">Hangman</a>
+                    </h1>
+                </div>
+                <div id="menu">
+                    <ul>
+                        <li class="first current_page_item">
+                            <a href="#">Homepage</a>
+                        </li>
+                        <li>
+                            <a href="#">Register</a>
+                        </li>
+                        <li>
+                            <a href="#">Login</a>
+                        </li>
+                        <li>
+                            <a href="#">Top10</a>
+                        </li>
+                    </ul>
+                    <br class="clearfix" />
+                </div>
+            </div>
+
+            <div id="page">
+                <div id="content">
+                    {% block body %}{% endblock %}
+                </div>
+                <div id="sidebar">
+                    <h3>Last Games</h3>
+                    <div class="date-list">
+                        <ul class="list date-list">
+
+                            <li class="first"><span class="date">Jan 13</span> <a href="#">Ultrices quisque molestie</a></li>
+                            <li><span class="date">Jan 7</span> <a href="#">Neque dolor eget</a></li>
+                            <li><span class="date">Jan 1</span> <a href="#">Sollicitudin interdum</a></li>
+                            <li class="last"><span class="date">Dec 26</span> <a href="#">Varius dignissim</a></li>
+
+                        </ul>
+                    </div>
+                    <h3>Last players</h3>
+                    <p>
+                        Urna dis suscipit lorem sed luctus. Elementum suspendisse tempus fermentum ornare libero phasellus nibh conseuqat dolore.
+                    </p>
+                </div>
+                <br class="clearfix" />
+            </div>
+        </div>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,29 @@
+# hobo
+*.chef/*
+*.vagrant
+.bundle
+bin/*
+!bin/hobo
+build/*
+tools/chef/.chef/*-inviqa.pem
+tools/chef/.chef/knife.rb
+tools/chef/cookbooks/*
+tools/chef/tmp/*
+
+# Symfony
+web/bundles/
+app/bootstrap.php.cache
+app/cache/*
+app/logs/*
+vendor
+composer.phar
+
+# Magento
+public/var/*
+public/app/etc/local.xml
+public/media/*
+public/staging
+public/merge/css*/*.css
+public/merge/js/*.js
+public/downloader/.cache/
+*.modman

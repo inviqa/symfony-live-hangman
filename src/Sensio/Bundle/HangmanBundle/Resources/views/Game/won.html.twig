@@ -1,0 +1,17 @@
+{% extends "SensioHangmanBundle::layout.html.twig" %}
+
+{% block title -%}
+
+    Hangman Game - You won!
+
+{%- endblock title %}
+
+{% block body %}
+
+    <h2>Congratulations!</h2>
+
+        <p>
+            You found the word <strong>{{ word }}</strong> and won this party.
+        </p>
+
+{% endblock body %}

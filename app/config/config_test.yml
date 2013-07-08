@@ -1,0 +1,18 @@
+imports:
+    - { resource: config_dev.yml }
+
+parameters:
+    sensio_hangman.word_length: 3
+    sensio_hangman.word_list.class: Sensio\Bundle\HangmanBundle\Game\WordListMock
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true
