@@ -20,6 +20,19 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('sensio_hangman');
 
+        $rootNode
+            ->children()
+                ->scalarNode('word_length')
+                    ->defaultValue(8)
+                ->end()
+                ->arrayNode('dictionaries')
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->prototype('scalar')->end()
+                ->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }

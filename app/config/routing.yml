@@ -7,6 +7,13 @@ SensioHangmanBundle:
     type: annotation
     prefix: /
 
+login_check:
+  pattern: /auth
+  defaults: {_method:POST}
+
+logout:
+  pattern: /logout
+
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

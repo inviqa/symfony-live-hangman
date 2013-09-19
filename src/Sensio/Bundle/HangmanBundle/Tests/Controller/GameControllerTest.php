@@ -18,6 +18,18 @@ class GameControllerTest extends WebTestCase
         $this->client->followRedirects(true);
     }
 
+    public function testTryWord()
+    {
+        $crawler = $this->client->request('GET', '/game/');
+        $form = $crawler->selectButton('Let me guess...')->form();
+        $crawler = $this->client->submit($form, array('word' => 'php'));
+
+        $this->assertEquals(
+            'Congratulations!',
+            $crawler->filter('#content > h2:first-child')->text()
+        );
+    }
+
     protected function tearDown()
     {
         $this->client = null;

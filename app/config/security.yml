@@ -1,26 +1,26 @@
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        Sensio\Bundle\HangmanBundle\Entity\Player: sha512
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        players:
+            entity: { class: SensioHangmanBundle:Player, property: username}
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         game:
-            pattern:    ^/foo
-            http_basic: ~
+            pattern:    ^/
+            anonymous: ~
+            form_login:
+              login_path: login
+              check_path: login_check
+              default_target_path: hangman_game
+            logout:
+              path: logout
+              target: login
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+        - { path: ^/game, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/roles, roles: IS_AUTHENTICATED_ANONYMOUSLY }

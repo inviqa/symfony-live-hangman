@@ -3,7 +3,10 @@ imports:
 
 parameters:
     sensio_hangman.word_length: 3
-    sensio_hangman.word_list.class: Sensio\Bundle\HangmanBundle\Game\WordListMock
+
+sensio_hangman:
+  dictionaries:
+      - "%kernel.root_dir%/../src/Sensio/Bundle/HangmanBundle/Test/Fixtures/test-words.txt"
 
 framework:
     test: ~

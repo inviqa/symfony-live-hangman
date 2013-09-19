@@ -3,14 +3,20 @@
 namespace Sensio\Bundle\HangmanBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Sensio\Bundle\HangmanBundle\Entity\Player
  *
  * @ORM\Table(name="sl_players")
  * @ORM\Entity(repositoryClass="Sensio\Bundle\HangmanBundle\Entity\PlayerRepository")
+ * @UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="Email already taken")
  */
-class Player
+class Player implements UserInterface
 {
     /**
      * @var integer $id
@@ -25,7 +31,8 @@ class Player
      * @var string $username
      *
      * @ORM\Column(name="username", type="string", length=15, unique=true)
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 6, max = 15)
      */
     private $username;
 
@@ -33,7 +40,8 @@ class Player
      * @var string $email
      *
      * @ORM\Column(name="email", type="string", length=60, unique=true)
-     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -72,6 +80,10 @@ class Player
      */
     private $expiresAt;
 
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 8)
+     */
     private $rawPassword;
 
     /**
@@ -101,7 +113,7 @@ class Player
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -121,7 +133,7 @@ class Player
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -141,7 +153,7 @@ class Player
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -161,7 +173,7 @@ class Player
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -181,7 +193,7 @@ class Player
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt()
     {
@@ -201,7 +213,7 @@ class Player
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -221,7 +233,7 @@ class Player
     /**
      * Get isAdmin
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsAdmin()
     {
@@ -241,10 +253,47 @@ class Player
     /**
      * Get expiresAt
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getExpiresAt()
     {
         return $this->expiresAt;
+    }
+
+    /**
+     * @Assert\True(message="Your password must not contain your username")
+     */
+    public function isPasswordValid()
+    {
+        return 0 === preg_match(
+            '/'.preg_quote($this->username).'/i',
+            $this->rawPassword
+        );
+    }
+
+    public function eraseCredentials()
+    {
+        $this->rawPassword = null;
+    }
+
+    public function getRoles()
+    {
+        if ($this->isAdmin) {
+            return array('ROLE_ADMIN');
+        }
+
+        return array('ROLE_PLAYER');
+    }
+
+    public function encodePassword(PasswordEncoderInterface $encoder)
+    {
+        if (null !== $this->rawPassword) {
+            $this->salt = sha1(uniqid().rand(0, 999999));
+            $this->password = $encoder->encodePassword(
+                $this->rawPassword,
+                $this->salt
+            );
+            $this->eraseCredentials();
+        }
     }
 }

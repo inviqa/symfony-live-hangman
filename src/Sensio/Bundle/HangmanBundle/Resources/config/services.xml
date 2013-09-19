@@ -4,6 +4,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="sensio_hangman.game_context.class">Sensio\Bundle\HangmanBundle\Game\GameContext</parameter>
+        <parameter key="sensio_hangman.word_list.class">Sensio\Bundle\HangmanBundle\Game\WordList</parameter>
+    </parameters>
 
+    <services>
+
+        <service id="sensio_hangman.game_context"
+                 class="%sensio_hangman.game_context.class%">
+            <argument type="service" id="session" />
+        </service>
+
+        <service id="sensio_hangman.word_list"
+                 class="%sensio_hangman.word_list.class%">
+            <argument>%sensio_hangman.dictionaries%</argument>
+            <call method="loadDictionaries"/>
+
+        </service>
+
+    </services>
 
 </container>
